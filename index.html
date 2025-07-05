@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BharatKeShabd.in - दैनिक कोट्स और स्टेटस</title>
+    <meta name="description" content="बेहतरीन हिंदी कोट्स, व्हाट्सएप स्टेटस, इंस्टाग्राम कैप्शन और प्रेरणादायक शब्द। रोज नए कोट्स पढ़ें।">
+    <meta name="keywords" content="हिंदी कोट्स, व्हाट्सएप स्टेटस, इंस्टाग्राम कैप्शन, प्रेरणादायक कोट्स, लव कोट्स, दोस्ती कोट्स">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="BharatKeShabd.in - दैनिक कोट्स और स्टेटस">
+    <meta property="og:description" content="बेहतरीन हिंदी कोट्स, व्हाट्सएप स्टेटस, इंस्टाग्राम कैप्शन">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bharatkeshabd.in">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2><i class="fas fa-quote-left"></i> BharatKeShabd.in</h2>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link">होम</a>
+                <a href="#categories" class="nav-link">कैटेगरी</a>
+                <a href="#trending" class="nav-link">ट्रेंडिंग</a>
+                <a href="#" class="nav-link" onclick="showFavoriteQuotes()">पसंदीदा ❤️</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>भारत के शब्द</h1>
+            <p>दैनिक प्रेरणादायक कोट्स, व्हाट्सएप स्टेटस और इंस्टाग्राम कैप्शन</p>
+            <div class="quote-stats">
+                <div class="stat-item">
+                    <span class="stat-number" id="totalQuotes">500+</span>
+                    <span class="stat-label">कुल कोट्स</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="dailyViews">1000+</span>
+                    <span class="stat-label">दैनिक व्यू</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="happyUsers">5000+</span>
+                    <span class="stat-label">खुश यूजर</span>
+                </div>
+            </div>
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="getRandomQuote()">
+                    <i class="fas fa-dice"></i> रैंडम कोट
+                </button>
+                <button class="btn-secondary" onclick="shareQuote()">
+                    <i class="fas fa-share"></i> शेयर करें
+                </button>
+            </div>
+        </div>
+        <div class="hero-quote">
+            <div class="quote-card featured" id="heroQuote">
+                <p id="heroQuoteText">"सफलता का सबसे बड़ा राज यह है कि आप कभी हार न मानें।"</p>
+                <div class="quote-author">- महात्मा गांधी</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Space -->
+    <div class="ad-container">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXX"
+             data-ad-slot="XXXXXXXXXX"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+    </div>
+
+    <!-- Categories Section -->
+    <section id="categories" class="categories">
+        <div class="container">
+            <h2 class="section-title">कैटेगरी चुनें</h2>
+            <p class="section-subtitle">अपनी पसंदीदा कैटेगरी चुनें और बेहतरीन कोट्स का आनंद लें</p>
+            <div class="category-grid">
+                <div class="category-card" data-category="motivational">
+                    <i class="fas fa-rocket"></i>
+                    <h3>प्रेरणादायक</h3>
+                    <p>जीवन में आगे बढ़ने के लिए</p>
+                </div>
+                <div class="category-card" data-category="love">
+                    <i class="fas fa-heart"></i>
+                    <h3>प्रेम</h3>
+                    <p>दिल को छू जाने वाले</p>
+                </div>
+                <div class="category-card" data-category="friendship">
+                    <i class="fas fa-users"></i>
+                    <h3>दोस्ती</h3>
+                    <p>सच्ची मित्रता के लिए</p>
+                </div>
+                <div class="category-card" data-category="life">
+                    <i class="fas fa-leaf"></i>
+                    <h3>जीवन</h3>
+                    <p>जिंदगी के अनुभव</p>
+                </div>
+                <div class="category-card" data-category="success">
+                    <i class="fas fa-trophy"></i>
+                    <h3>सफलता</h3>
+                    <p>कामयाबी के मंत्र</p>
+                </div>
+                <div class="category-card" data-category="attitude">
+                    <i class="fas fa-fire"></i>
+                    <h3>एटीट्यूड</h3>
+                    <p>अपना स्टाइल दिखाएं</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quotes Display Section -->
+    <section class="quotes-section">
+        <div class="container">
+            <h2 class="section-title">आज के कोट्स</h2>
+            <div class="quotes-grid" id="quotesGrid">
+                <!-- Quotes will be dynamically loaded here -->
+            </div>
+            <div class="load-more">
+                <button class="btn-primary" onclick="loadMoreQuotes()">
+                    <i class="fas fa-plus"></i> और देखें
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Space -->
+    <div class="ad-container">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXX"
+             data-ad-slot="XXXXXXXXXX"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+    </div>
+
+    <!-- Trending Section -->
+    <section id="trending" class="trending">
+        <div class="container">
+            <h2 class="section-title">ट्रेंडिंग कोट्स</h2>
+            <div class="trending-quotes" id="trendingQuotes">
+                <!-- Trending quotes will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>दैनिक कोट्स पाएं</h2>
+            <p>रोज नए कोट्स और स्टेटस अपने ईमेल पर पाएं</p>
+            <div class="newsletter-form">
+                <input type="email" placeholder="अपना ईमेल एड्रेस डालें" id="emailInput">
+                <button onclick="subscribeNewsletter()">सब्सक्राइब करें</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>BharatKeShabd.in</h3>
+                    <p>भारत की सबसे बड़ी हिंदी कोट्स वेबसाइट। यहाँ आपको मिलेंगे बेहतरीन कोट्स, स्टेटस और कैप्शन।</p>
+                </div>
+                <div class="footer-section">
+                    <h4>कैटेगरी</h4>
+                    <ul>
+                        <li><a href="#motivational">प्रेरणादायक</a></li>
+                        <li><a href="#love">प्रेम</a></li>
+                        <li><a href="#friendship">दोस्ती</a></li>
+                        <li><a href="#success">सफलता</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>फॉलो करें</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>संपर्क</h4>
+                    <p>ईमेल: info@bharatkeshabd.in</p>
+                    <p>व्हाट्सएप: +91 9XXXXXXXXX</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BharatKeShabd.in - सभी अधिकार सुरक्षित</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Random Quote Button -->
+    <div class="floating-random-btn" onclick="getRandomQuote()" title="रैंडम कोट पाएं">
+        <i class="fas fa-dice"></i>
+    </div>
+
+    <!-- Quote Modal -->
+    <div id="quoteModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-quote">
+                <p id="modalQuoteText"></p>
+                <div class="modal-author" id="modalAuthor"></div>
+            </div>
+            <div class="modal-actions">
+                <button onclick="copyQuote()" class="btn-secondary">
+                    <i class="fas fa-copy"></i> कॉपी करें
+                </button>
+                <button onclick="shareQuoteWhatsApp()" class="btn-success">
+                    <i class="fab fa-whatsapp"></i> व्हाट्सएप
+                </button>
+                <button onclick="shareQuoteTwitter()" class="btn-info">
+                    <i class="fab fa-twitter"></i> ट्विटर
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+    
+    <!-- Google AdSense Auto Ads -->
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</body>
+</html>

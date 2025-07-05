@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://bharatkeshabd.in/sitemap.xml
+
+# Allow search engines to crawl all content
+Allow: /index.html
+Allow: /motivational.html
+Allow: /love.html
+Allow: /friendship.html
+Allow: /style.css
+Allow: /script.js
+
+# Disallow admin or private directories (if any in future)
+Disallow: /admin/
+Disallow: /.git/

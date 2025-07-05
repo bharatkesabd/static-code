@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BharatKeShabd Admin - Quote Management</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .admin-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .admin-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .admin-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .admin-tab {
+            padding: 1rem 2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-tab.active {
+            border-bottom-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .admin-section {
+            display: none;
+        }
+        
+        .admin-section.active {
+            display: block;
+        }
+        
+        .quote-form {
+            display: grid;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .tags-input {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .tag-remove {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .quotes-list {
+            max-height: 600px;
+            overflow-y: auto;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        
+        .quote-item-admin {
+            padding: 1rem;
+            border: 1px solid #f0f0f0;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            background: #fafafa;
+        }
+        
+        .quote-item-admin:hover {
+            background: #f0f0f0;
+        }
+        
+        .quote-actions-admin {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .btn-admin {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-edit {
+            background: #2196F3;
+            color: white;
+        }
+        
+        .btn-delete {
+            background: #f44336;
+            color: white;
+        }
+        
+        .btn-save {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .backup-section {
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+        
+        .file-upload {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .file-upload:hover {
+            border-color: var(--primary-color);
+        }
+        
+        .file-upload.dragover {
+            border-color: var(--primary-color);
+            background: rgba(255, 107, 53, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2><i class="fas fa-quote-left"></i> BharatKeShabd Admin</h2>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i> मुख्य साइट
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1><i class="fas fa-cogs"></i> Quote Management System</h1>
+            <p>आसानी से कोट्स जोड़ें, संपादित करें और प्रबंधित करें</p>
+        </div>
+
+        <!-- Statistics Dashboard -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalQuotesAdmin">0</div>
+                <div>कुल कोट्स</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalCategoriesAdmin">0</div>
+                <div>कैटेगरी</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="popularQuotesAdmin">0</div>
+                <div>लोकप्रिय कोट्स</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="lastUpdatedAdmin">-</div>
+                <div>अंतिम अपडेट</div>
+            </div>
+        </div>
+
+        <!-- Admin Tabs -->
+        <div class="admin-tabs">
+            <button class="admin-tab active" onclick="showAdminSection('add')">
+                <i class="fas fa-plus"></i> नया कोट जोड़ें
+            </button>
+            <button class="admin-tab" onclick="showAdminSection('manage')">
+                <i class="fas fa-list"></i> कोट्स प्रबंधित करें
+            </button>
+            <button class="admin-tab" onclick="showAdminSection('backup')">
+                <i class="fas fa-download"></i> बैकअप/इंपोर्ट
+            </button>
+        </div>
+
+        <!-- Add Quote Section -->
+        <div id="add-section" class="admin-section active">
+            <h2><i class="fas fa-plus-circle"></i> नया कोट जोड़ें</h2>
+            <form class="quote-form" id="addQuoteForm">
+                <div class="form-group">
+                    <label for="quoteText">कोट टेक्स्ट *</label>
+                    <textarea id="quoteText" name="text" placeholder="कोट यहाँ लिखें..." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="quoteAuthor">लेखक *</label>
+                    <input type="text" id="quoteAuthor" name="author" placeholder="लेखक का नाम" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="quoteCategory">कैटेगरी *</label>
+                    <select id="quoteCategory" name="category" required>
+                        <option value="">कैटेगरी चुनें</option>
+                        <option value="motivational">प्रेरणादायक</option>
+                        <option value="love">प्रेम</option>
+                        <option value="friendship">दोस्ती</option>
+                        <option value="life">जीवन</option>
+                        <option value="success">सफलता</option>
+                        <option value="attitude">एटीट्यूड</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="quoteTags">टैग्स (कॉमा से अलग करें)</label>
+                    <input type="text" id="quoteTags" name="tags" placeholder="motivation, success, life">
+                    <div class="tags-input" id="tagsDisplay"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="quotePopularity">लोकप्रियता (1-100)</label>
+                    <input type="number" id="quotePopularity" name="popularity" min="1" max="100" value="50">
+                </div>
+                
+                <button type="submit" class="btn-admin btn-save">
+                    <i class="fas fa-save"></i> कोट सेव करें
+                </button>
+            </form>
+        </div>
+
+        <!-- Manage Quotes Section -->
+        <div id="manage-section" class="admin-section">
+            <h2><i class="fas fa-list-ul"></i> कोट्स प्रबंधित करें</h2>
+            
+            <div class="form-group">
+                <label for="filterCategory">कैटेगरी फ़िल्टर</label>
+                <select id="filterCategory" onchange="filterQuotes()">
+                    <option value="">सभी कैटेगरी</option>
+                    <option value="motivational">प्रेरणादायक</option>
+                    <option value="love">प्रेम</option>
+                    <option value="friendship">दोस्ती</option>
+                    <option value="life">जीवन</option>
+                    <option value="success">सफलता</option>
+                    <option value="attitude">एटीट्यूड</option>
+                </select>
+            </div>
+            
+            <div class="quotes-list" id="quotesList">
+                <!-- Quotes will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Backup Section -->
+        <div id="backup-section" class="admin-section">
+            <h2><i class="fas fa-database"></i> बैकअप और इंपोर्ट</h2>
+            
+            <div class="backup-section">
+                <h3><i class="fas fa-download"></i> बैकअप डाउनलोड करें</h3>
+                <p>अपने सभी कोट्स का बैकअप डाउनलोड करें</p>
+                <button class="btn-admin btn-save" onclick="downloadBackup()">
+                    <i class="fas fa-download"></i> JSON फ़ाइल डाउनलोड करें
+                </button>
+            </div>
+            
+            <div class="backup-section">
+                <h3><i class="fas fa-upload"></i> फ़ाइल अपलोड करें</h3>
+                <p>JSON फ़ाइल अपलोड करके कोट्स इंपोर्ट करें</p>
+                <div class="file-upload" id="fileUpload">
+                    <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"></i>
+                    <p>फ़ाइल यहाँ ड्रैग करें या क्लिक करके चुनें</p>
+                    <input type="file" id="fileInput" accept=".json" style="display: none;">
+                </div>
+                <button class="btn-admin btn-save" onclick="importQuotes()" id="importBtn" style="display: none;">
+                    <i class="fas fa-upload"></i> कोट्स इंपोर्ट करें
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
